@@ -13,6 +13,7 @@ public class RacingCarController {
 
     public void run() {
         String carNamesInput = InputView.readCarNames();
+        String tryCountInput = InputView.readTryCount();
 //        racingCarService.startRacing(racingCarRequest);
     }
 
