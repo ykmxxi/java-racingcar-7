@@ -1,5 +1,9 @@
 package racingcar.presentation;
 
+import java.util.Arrays;
+import java.util.List;
+
+import racingcar.dto.RacingCarRequest;
 import racingcar.presentation.view.InputView;
 import racingcar.service.RacingCarService;
 
@@ -14,7 +18,32 @@ public class RacingCarController {
     public void run() {
         String carNamesInput = InputView.readCarNames();
         String tryCountInput = InputView.readTryCount();
-//        racingCarService.startRacing(racingCarRequest);
+
+        racingCarService.startRacing(createRacingCarRequest(carNamesInput, tryCountInput));
+    }
+
+    private RacingCarRequest createRacingCarRequest(final String carNames, final String tryCount) {
+        List<String> nameValues = Arrays.stream(carNames.split(","))
+                .toList();
+        validateNameValuesInput(nameValues);
+        int roundTotal = validateIntegerNumber(tryCount);
+        return new RacingCarRequest(nameValues, roundTotal);
+    }
+
+    private void validateNameValuesInput(final List<String> nameValues) {
+        if (nameValues.stream()
+                .anyMatch(String::isBlank)
+        ) {
+            throw new IllegalArgumentException("자동차 이름은 공백(빈 문자열)일 수 없습니다.");
+        }
+    }
+
+    private int validateIntegerNumber(final String tryCount) {
+        try {
+            return Integer.parseInt(tryCount);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("정수만 입력해 주세요.");
+        }
     }
 
 }
