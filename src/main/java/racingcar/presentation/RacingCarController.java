@@ -1,5 +1,6 @@
 package racingcar.presentation;
 
+import racingcar.presentation.view.InputView;
 import racingcar.service.RacingCarService;
 
 public class RacingCarController {
@@ -11,7 +12,7 @@ public class RacingCarController {
     }
 
     public void run() {
-        // TODO: 이름 입력, 총 라운드 입력 RacingCarRequest 변환
+        String carNamesInput = InputView.readCarNames();
 //        racingCarService.startRacing(racingCarRequest);
     }
 
