@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Position {
 
     private static final Position ZERO = new Position(0);
+    private static final int FORWARD_DISTANCE = 1;
 
     private final int value;
 
@@ -14,6 +15,14 @@ public class Position {
 
     public static Position zero() {
         return ZERO;
+    }
+
+    public static Position from(final int value) {
+        return new Position(value);
+    }
+
+    public Position moveForward() {
+        return from(value + FORWARD_DISTANCE);
     }
 
     @Override
@@ -30,6 +39,13 @@ public class Position {
     @Override
     public int hashCode() {
         return Objects.hashCode(value);
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "value=" + value +
+                '}';
     }
 
 }

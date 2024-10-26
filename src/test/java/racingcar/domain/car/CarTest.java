@@ -1,5 +1,6 @@
 package racingcar.domain.car;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -22,6 +23,30 @@ class CarTest {
     void 자동차_생성_실패_이름_검증_실패(String nameValue) {
         assertThatThrownBy(() -> new Car(nameValue))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("자동차는 값이 4 이상이면 한 칸 전진한다")
+    @Test
+    void 값이_4_이상이면_전진() {
+        var car = createCar();
+
+        car.move(4);
+
+        assertThat(car.position()).isEqualTo(Position.from(1));
+    }
+
+    @DisplayName("자동차는 값이 4 미만이면 멈춘다")
+    @Test
+    void 값이_4_미만이면_멈춤() {
+        var car = createCar();
+
+        car.move(3);
+
+        assertThat(car.position()).isEqualTo(Position.zero());
+    }
+
+    private Car createCar() {
+        return new Car("pobi");
     }
 
 }
