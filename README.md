@@ -43,7 +43,7 @@
 ## 판단 근거
 - 이름 입력 순으로 출력하기 위해 FIFO 구조가 좋아 보이는데 왜 `List(ArrayList)` 사용?
   - `List`는 순서가 보장된 자료구조
-  - JDK21 부터 `List`는 `SequencedCollection` 하위 -> 관련 메서드 사용 가능
-- 순서를 보장하는 `LinkedHashSet`대신 왜 `List(ArrayList)` 사용? 
-  - 
-  - `Car`는 `Name`을 식별자로 사용, 중복 이름을 판별 가능
+  - JDK21 부터 `List`는 `SequencedCollection` 하위 -> 관련 메서드 사용 가능, 명시적인 순서 보장 컬렉션
+- cars 일급 컬렉션에 `LinkedHashSet`?
+  - `LinkedHashSet`은 `SequencedCollection` -> Hash를 이용한 고유성 판단, 명시적인 순서 보장 컬렉션
+  - `Map<Name, Car>` 형태는? `Name` 중복, 이를 해결하려면 자동차에 `Position`만 존재 -> 이름은 자동차의 상태 
