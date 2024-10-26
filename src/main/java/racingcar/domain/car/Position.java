@@ -25,6 +25,10 @@ public class Position {
         return from(value + FORWARD_DISTANCE);
     }
 
+    public int value() {
+        return value;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

@@ -32,7 +32,7 @@
   - 값의 범위는 완벽한 제어와 통제가 가능 -> 도메인 규칙
 - [x] 자동차 경주를 시작한다
   - 값을 가져와 도메인에 전달하는 것은 서비스의 역할
-- [ ] 라운드 결과를 저장한다
+- [x] 라운드 결과를 저장한다
 - [ ] 최종 우승자를 선정한다
   - 우승자는 1명 이상이다
 - [ ] 실행 결과를 출력한다
@@ -50,6 +50,9 @@
 - 이름 입력 순으로 출력하기 위해 FIFO 구조가 좋아 보이는데 왜 `List(ArrayList)` 사용?
   - `List`는 순서가 보장된 자료구조
   - JDK21 부터 `List`는 `SequencedCollection` 하위 -> 관련 메서드 사용 가능, 명시적인 순서 보장 컬렉션
-- cars 일급 컬렉션에 `LinkedHashSet`?
-  - `LinkedHashSet`은 `SequencedCollection` -> Hash를 이용한 고유성 판단, 명시적인 순서 보장 컬렉션
-  - `Map<Name, Car>` 형태는? `Name` 중복, 이를 해결하려면 자동차에 `Position`만 존재 -> 이름은 자동차의 상태 
+- cars 일급 컬렉션에 왜 `LinkedHashSet`을 사용하지 않고 `List(ArrayList)`?
+  - `LinkedHashSet`은 `SequencedCollection` -> 고유성, 순서 보장이 되지만 조회가 불가능
+  - `Map<Name, Car>` 형태는? `Name` 중복, 이를 해결하려면 자동차에 `Position`만 존재 -> 이름은 자동차의 상태
+- 일급 컬렉션에서 조회를 위해 컬렉션을 반환할 때 어떻게 처리?
+  - `Cars`: `Car`의 `Name`은 불변 객체라 원본에 영향을 줄 수 없다. 하지만 `Position`은 가변 객체 -> 원본과 참조를 끊는 `Car` 복사본이 필요
+  - `Results`: 모두 불변 객체라 `toList()`를 통해  

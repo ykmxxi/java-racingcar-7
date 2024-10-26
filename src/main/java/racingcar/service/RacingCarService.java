@@ -18,6 +18,8 @@ public class RacingCarService {
         for (int currentRound = 0; currentRound < request.roundTotal(); currentRound++) {
             List<Integer> randomNumbers = getRandomNumbers(cars.size());
             cars.moveAll(randomNumbers);
+
+            racing.saveRoundResult(cars.getCars());
         }
     }
 

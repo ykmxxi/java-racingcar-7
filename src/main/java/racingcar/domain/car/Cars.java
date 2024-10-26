@@ -37,6 +37,12 @@ public class Cars {
         });
     }
 
+    public List<Car> getCars() {
+        return cars.stream()
+                .map(Car::copy)
+                .toList();
+    }
+
     public int size() {
         return cars.size();
     }

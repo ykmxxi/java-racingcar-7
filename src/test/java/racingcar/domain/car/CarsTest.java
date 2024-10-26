@@ -35,4 +35,15 @@ class CarsTest {
                 .hasMessage("중복되지 않은 자동차 이름을 입력해주세요");
     }
 
+    @DisplayName("조회를 위해 반환한 자동차들은 수정이 불가능하다")
+    @Test
+    void 조회를_위한_자동차들_복사본_수정_불가() {
+        Cars cars = Cars.from(nameValues);
+
+        List<Car> copyCars = cars.getCars();
+
+        assertThatThrownBy(copyCars::removeFirst)
+                .isInstanceOf(UnsupportedOperationException.class);
+    }
+
 }

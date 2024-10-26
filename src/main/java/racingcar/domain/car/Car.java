@@ -14,14 +14,27 @@ public class Car {
         this.position = Position.zero();
     }
 
+    private Car(final String nameValue, final int positionValue) {
+        this.name = Name.from(nameValue);
+        this.position = Position.from(positionValue);
+    }
+
     public void move(final int randomNumber) {
         if (randomNumber >= MOVE_FORWARD_THRESHOLD) {
             position = position.moveForward();
         }
     }
 
+    public Name name() {
+        return name;
+    }
+
     public Position position() {
         return position;
+    }
+
+    public Car copy() {
+        return new Car(this.name.value(), this.position.value());
     }
 
     @Override

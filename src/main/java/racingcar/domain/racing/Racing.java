@@ -1,5 +1,9 @@
 package racingcar.domain.racing;
 
+import java.util.List;
+
+import racingcar.domain.car.Car;
+
 public class Racing {
 
     private final Results results;
@@ -12,6 +16,10 @@ public class Racing {
 
     public static Racing from(final int roundTotal) {
         return new Racing(roundTotal);
+    }
+
+    public void saveRoundResult(final List<Car> cars) {
+        results.saveAll(cars);
     }
 
 }

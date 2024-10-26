@@ -45,6 +45,18 @@ class CarTest {
         assertThat(car.position()).isEqualTo(Position.zero());
     }
 
+    @DisplayName("복사본은 원본 객체와의 참조를 완전히 끊어 원본에 영향을 주지 않는다")
+    @Test
+    void 복사본은_원본_객체에_영향_없음() {
+        Car car = createCar();
+        Car copy = car.copy();
+
+        copy.move(4);
+
+        assertThat(car.position()).isEqualTo(Position.zero());
+        assertThat(copy.position()).isEqualTo(Position.from(1));
+    }
+
     private Car createCar() {
         return new Car("pobi");
     }
