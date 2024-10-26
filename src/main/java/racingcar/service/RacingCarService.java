@@ -8,11 +8,13 @@ import racingcar.domain.car.Cars;
 import racingcar.domain.car.Name;
 import racingcar.domain.racing.NumberRange;
 import racingcar.domain.racing.Racing;
+import racingcar.domain.racing.Results;
 import racingcar.dto.RacingCarRequest;
+import racingcar.dto.RacingCarResponse;
 
 public class RacingCarService {
 
-    public void startRacing(RacingCarRequest request) {
+    public RacingCarResponse startRacing(RacingCarRequest request) {
         Cars cars = Cars.from(request.nameValues());
         Racing racing = Racing.from(request.roundTotal());
 
@@ -23,7 +25,9 @@ public class RacingCarService {
             racing.saveRoundResult(cars.getCars());
         }
 
+        Results results = racing.getResults();
         List<Name> winners = racing.announceWinners(cars);
+        return RacingCarResponse.of(results, winners);
     }
 
     private List<Integer> getRandomNumbers(final int carTotalCount) {

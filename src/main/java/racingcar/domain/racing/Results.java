@@ -14,6 +14,14 @@ public class Results {
         this.results = new ArrayList<>();
     }
 
+    private Results(final List<Result> results) {
+        this.results = results;
+    }
+
+    public Results copy() {
+        return new Results(this.results);
+    }
+
     public void saveAll(final List<Car> cars) {
         Result result = Result.empty();
         for (Car car : cars) {

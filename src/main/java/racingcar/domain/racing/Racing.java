@@ -25,6 +25,10 @@ public class Racing {
         results.saveAll(cars);
     }
 
+    public Results getResults() {
+        return results.copy();
+    }
+
     public List<Name> announceWinners(final Cars cars) {
         Position winnerPosition = results.findWinnerPosition();
 

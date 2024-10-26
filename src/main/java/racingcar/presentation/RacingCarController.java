@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import racingcar.dto.RacingCarRequest;
+import racingcar.dto.RacingCarResponse;
 import racingcar.presentation.view.InputView;
+import racingcar.presentation.view.OutputView;
 import racingcar.service.RacingCarService;
 
 public class RacingCarController {
@@ -19,7 +21,12 @@ public class RacingCarController {
         String carNamesInput = InputView.readCarNames();
         String tryCountInput = InputView.readTryCount();
 
-        racingCarService.startRacing(createRacingCarRequest(carNamesInput, tryCountInput));
+        RacingCarResponse racingCarResponse = racingCarService.startRacing(
+                createRacingCarRequest(carNamesInput, tryCountInput)
+        );
+
+        OutputView.printRaceResults(racingCarResponse.raceResults());
+        OutputView.printWinnerNames(racingCarResponse.winners());
     }
 
     private RacingCarRequest createRacingCarRequest(final String carNames, final String tryCount) {

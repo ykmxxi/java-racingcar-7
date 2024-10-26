@@ -9,13 +9,9 @@ public class InputView {
     public static String readCarNames() {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
 
-        try {
-            String input = Console.readLine();
-            validateEmptyAndBlank(input);
-            return input;
-        } finally {
-            Console.close();
-        }
+        String input = Console.readLine();
+        validateEmptyAndBlank(input);
+        return input;
     }
 
     public static String readTryCount() {
