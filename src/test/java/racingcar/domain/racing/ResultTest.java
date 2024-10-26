@@ -12,11 +12,12 @@ class ResultTest {
 
     @DisplayName("경주 결과는 자동차 이름(key)과 현재 위치(value)를 저장한다")
     @Test
-    void 경주_결과_생성() {
+    void 경주_결과_저장() {
         Name name = Name.from("pobi");
         Position position = Position.zero();
+        Result result = Result.empty();
 
-        Result result = Result.from(name, position);
+        result.save(name, position);
 
         assertThat(result.getResult())
                 .containsKey(name)

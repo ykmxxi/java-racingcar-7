@@ -21,10 +21,15 @@ class ResultsTest {
 
         results.saveAll(List.of(pobi, woni));
 
-        assertThat(results.getResults()).containsExactly(
-                createResult(pobi),
-                createResult(woni)
-        );
+        assertThat(results.getResults()).containsExactly(createResult(pobi, woni));
+    }
+
+    private Result createResult(Car... cars) {
+        Result result = Result.empty();
+        for (Car car : cars) {
+            result.save(car.name(), car.position());
+        }
+        return result;
     }
 
     @DisplayName("조회를 위해 반환한 자동차들의 경주 결과들은 수정이 불가능하다")
@@ -39,10 +44,6 @@ class ResultsTest {
 
         assertThatThrownBy(copyResults::removeFirst)
                 .isInstanceOf(UnsupportedOperationException.class);
-    }
-
-    private Result createResult(Car car) {
-        return Result.from(car.name(), car.position());
     }
 
 }

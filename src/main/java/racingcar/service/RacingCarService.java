@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 
 import racingcar.api.RandomsApiClient;
 import racingcar.domain.car.Cars;
+import racingcar.domain.car.Name;
 import racingcar.domain.racing.NumberRange;
 import racingcar.domain.racing.Racing;
 import racingcar.dto.RacingCarRequest;
@@ -21,6 +22,8 @@ public class RacingCarService {
 
             racing.saveRoundResult(cars.getCars());
         }
+
+        List<Name> winners = racing.announceWinners(cars);
     }
 
     private List<Integer> getRandomNumbers(final int carTotalCount) {

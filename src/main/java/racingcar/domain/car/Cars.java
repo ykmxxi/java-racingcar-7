@@ -1,6 +1,7 @@
 package racingcar.domain.car;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Cars {
 
@@ -31,10 +32,17 @@ public class Cars {
     }
 
     public void moveAll(final List<Integer> randomNumbers) {
-        cars.forEach(car -> {
-            car.move(randomNumbers.getFirst());
-            randomNumbers.removeFirst();
-        });
+        IntStream.range(0, size())
+                .forEachOrdered(index -> cars.get(index)
+                        .move(randomNumbers.get(index))
+                );
+    }
+
+    public List<Name> getSamePositionCarNames(final Position position) {
+        return cars.stream()
+                .filter(car -> car.isSamePosition(position))
+                .map(Car::name)
+                .toList();
     }
 
     public List<Car> getCars() {

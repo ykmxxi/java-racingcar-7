@@ -3,6 +3,9 @@ package racingcar.domain.racing;
 import java.util.List;
 
 import racingcar.domain.car.Car;
+import racingcar.domain.car.Cars;
+import racingcar.domain.car.Name;
+import racingcar.domain.car.Position;
 
 public class Racing {
 
@@ -20,6 +23,12 @@ public class Racing {
 
     public void saveRoundResult(final List<Car> cars) {
         results.saveAll(cars);
+    }
+
+    public List<Name> announceWinners(final Cars cars) {
+        Position winnerPosition = results.findWinnerPosition();
+
+        return cars.getSamePositionCarNames(winnerPosition);
     }
 
 }

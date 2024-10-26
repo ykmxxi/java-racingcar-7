@@ -25,6 +25,10 @@ public class Car {
         }
     }
 
+    public boolean isSamePosition(final Position position) {
+        return this.position.equals(position);
+    }
+
     public Name name() {
         return name;
     }

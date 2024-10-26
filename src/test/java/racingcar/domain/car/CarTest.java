@@ -4,9 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class CarTest {
@@ -57,8 +61,25 @@ class CarTest {
         assertThat(copy.position()).isEqualTo(Position.from(1));
     }
 
+
+    @DisplayName("자동차의 위치가 같으면 true, 다르면 false를 반환한다")
+    @MethodSource("providePositionAndExpectedResult")
+    @ParameterizedTest
+    void 자동차_위치_비교(Position position, Boolean expected) {
+        Car car = createCar();
+
+        assertThat(car.isSamePosition(position)).isEqualTo(expected);
+    }
+
     private Car createCar() {
         return new Car("pobi");
+    }
+
+    static Stream<Arguments> providePositionAndExpectedResult() {
+        return Stream.of(
+                Arguments.of(Position.zero(), true),
+                Arguments.of(Position.from(1), false)
+        );
     }
 
 }

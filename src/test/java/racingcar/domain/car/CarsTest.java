@@ -1,5 +1,6 @@
 package racingcar.domain.car;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -44,6 +45,16 @@ class CarsTest {
 
         assertThatThrownBy(copyCars::removeFirst)
                 .isInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @DisplayName("주어진 위치와 동일한 위치의 자동차 이름들을 반환한다")
+    @Test
+    void 동일한_위치의_자동차_이름들_반환() {
+        Position one = Position.from(1);
+        Cars cars = Cars.from(nameValues);
+        cars.moveAll(List.of(4, 3, 3)); // pobi 이동
+
+        assertThat(cars.getSamePositionCarNames(one)).containsExactly(Name.from("pobi"));
     }
 
 }

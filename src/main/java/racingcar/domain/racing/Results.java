@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import racingcar.domain.car.Car;
+import racingcar.domain.car.Position;
 
 public class Results {
 
@@ -14,10 +15,20 @@ public class Results {
     }
 
     public void saveAll(final List<Car> cars) {
+        Result result = Result.empty();
         for (Car car : cars) {
-            Result result = Result.from(car.name(), car.position());
-            results.add(result);
+            result.save(car.name(), car.position());
         }
+        results.add(result);
+    }
+
+    public Position findWinnerPosition() {
+        return results.getLast()
+                .getResult()
+                .values()
+                .stream()
+                .max(Position::compareTo)
+                .orElse(Position.zero());
     }
 
     public List<Result> getResults() {

@@ -15,10 +15,12 @@ public class Result {
         this.result = result;
     }
 
-    public static Result from(final Name name, final Position position) {
-        Map<Name, Position> result = new HashMap<>();
+    public static Result empty() {
+        return new Result(new HashMap<>());
+    }
+
+    public void save(final Name name, final Position position) {
         result.put(name, position);
-        return new Result(result);
     }
 
     public Map<Name, Position> getResult() {
