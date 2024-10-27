@@ -31,7 +31,7 @@ public class RacingCarController {
     }
 
     private RacingCarRequest createRacingCarRequest(final String carNames, final String tryCount) {
-        List<String> nameValues = Arrays.stream(carNames.split(","))
+        List<String> nameValues = Arrays.stream(carNames.split(",", -1))
                 .toList();
         validateNameValuesInput(nameValues);
         int roundTotal = validateIntegerNumber(tryCount);
