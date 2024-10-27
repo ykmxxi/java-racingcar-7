@@ -1,6 +1,7 @@
 package racingcar.domain.racing;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import racingcar.domain.car.Car;
@@ -35,12 +36,16 @@ public class Results {
     }
 
     public Position findWinnerPosition() {
-        return results.getLast()
-                .getResult()
-                .values()
-                .stream()
+        Collection<Position> finalPositions = getFinalPositions();
+        return finalPositions.stream()
                 .max(Position::compareTo)
                 .orElse(Position.zero());
+    }
+
+    private Collection<Position> getFinalPositions() {
+        return results.getLast()
+                .getResult()
+                .values();
     }
 
     public List<Result> getResults() {
