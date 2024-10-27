@@ -10,9 +10,11 @@ import racingcar.domain.racing.Result;
 import racingcar.domain.racing.Results;
 import racingcar.dto.RacingCarResponse;
 
-public class RacingResultMapper {
+public final class RacingCarMessageMapper {
 
-    public RacingCarResponse toResponse(final Results results, final List<Name> winners) {
+    private RacingCarMessageMapper() {}
+
+    public static RacingCarResponse toResponse(final Results results, final List<Name> winners) {
         List<Map<String, Integer>> racingResults = toRacingResults(results);
 
         List<String> winnerNames = winners.stream()
@@ -22,7 +24,7 @@ public class RacingResultMapper {
         return new RacingCarResponse(racingResults, winnerNames);
     }
 
-    private List<Map<String, Integer>> toRacingResults(final Results results) {
+    private static List<Map<String, Integer>> toRacingResults(final Results results) {
         List<Map<String, Integer>> racingResults = new ArrayList<>();
         for (Result result : results.getResults()) {
             racingResults.add(toRacingResult(result));
@@ -30,7 +32,7 @@ public class RacingResultMapper {
         return racingResults;
     }
 
-    private Map<String, Integer> toRacingResult(final Result result) {
+    private static Map<String, Integer> toRacingResult(final Result result) {
         Map<String, Integer> racingResults = new LinkedHashMap<>();
         result.getResult()
                 .forEach((name, position) -> racingResults.put(name.value(), position.value()));

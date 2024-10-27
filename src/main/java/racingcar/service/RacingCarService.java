@@ -9,14 +9,13 @@ import racingcar.domain.car.Name;
 import racingcar.domain.racing.NumberRange;
 import racingcar.domain.racing.Racing;
 import racingcar.domain.racing.Results;
-import racingcar.dto.RacingCarRequest;
 import racingcar.dto.RacingCarResponse;
 
 public class RacingCarService {
 
-    public RacingCarResponse startRacing(RacingCarRequest request) {
-        Cars cars = Cars.from(request.nameValues());
-        Racing racing = Racing.from(request.roundTotal());
+    public RacingCarResponse startRacing(final List<String> nameValues, final int roundTotal) {
+        Cars cars = Cars.from(nameValues);
+        Racing racing = Racing.from(roundTotal);
 
         playRacingCar(racing, cars);
 
@@ -42,8 +41,7 @@ public class RacingCarService {
         Results results = racing.results();
         List<Name> winners = racing.announceWinners(cars);
 
-        RacingResultMapper racingResultMapper = new RacingResultMapper();
-        return racingResultMapper.toResponse(results, winners);
+        return RacingCarMessageMapper.toResponse(results, winners);
     }
 
     private int createRandomNumber() {
