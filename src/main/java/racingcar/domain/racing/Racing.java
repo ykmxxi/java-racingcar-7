@@ -14,7 +14,7 @@ public class Racing {
 
     private Racing(final int roundTotal) {
         this.results = new Results();
-        this.round = Round.from(roundTotal);
+        this.round = Round.create(roundTotal);
     }
 
     public static Racing from(final int roundTotal) {
@@ -25,14 +25,14 @@ public class Racing {
         results.saveAll(cars);
     }
 
-    public Results getResults() {
-        return results.copy();
-    }
-
     public List<Name> announceWinners(final Cars cars) {
         Position winnerPosition = results.findWinnerPosition();
 
         return cars.getSamePositionCarNames(winnerPosition);
+    }
+
+    public Results getResults() {
+        return results.copy();
     }
 
 }
