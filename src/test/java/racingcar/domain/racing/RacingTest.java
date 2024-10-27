@@ -1,11 +1,19 @@
 package racingcar.domain.racing;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import racingcar.domain.car.Car;
+import racingcar.domain.car.Cars;
+import racingcar.domain.car.Position;
 
 class RacingTest {
 
@@ -23,6 +31,37 @@ class RacingTest {
         assertThatThrownBy(() -> Racing.from(roundTotal))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 경주는 1 이상 100 이하의 라운드만 진행 가능합니다.");
+    }
+
+    @DisplayName("자동차들에게 배정된 숫자를 알려줘 경주를 진행한다")
+    @Test
+    void 경주_진행() {
+        Cars cars = Cars.from(List.of("pobi", "woni"));
+        List<Integer> numbers = List.of(4, 4);
+        Racing racing = Racing.from(1);
+
+        racing.play(cars, numbers);
+
+        assertThat(cars.getCars().stream()
+                .map(Car::position)
+                .map(Position::value)
+                .toList()
+        ).containsExactly(1, 1);
+    }
+
+    @DisplayName("해당 라운드가 끝나면 경주 결과를 저장한다")
+    @Test
+    void 각_라운드_결과_저장() {
+        Cars cars = Cars.from(List.of("pobi", "woni"));
+        List<Integer> numbers = List.of(4, 4);
+        Racing racing = Racing.from(1);
+        racing.play(cars, numbers);
+
+        racing.saveRoundResult(cars);
+
+        assertThat(racing.results()
+                .getResults()
+        ).hasSize(1);
     }
 
 }

@@ -18,25 +18,29 @@ public class RacingCarService {
         Cars cars = Cars.from(request.nameValues());
         Racing racing = Racing.from(request.roundTotal());
 
-        for (int currentRound = 0; currentRound < request.roundTotal(); currentRound++) {
-            List<Integer> randomNumbers = getRandomNumbers(cars.size());
-            cars.moveAll(randomNumbers);
+        playRacingCar(racing, cars);
 
-            racing.saveRoundResult(cars.getCars());
-        }
-
-        Results results = racing.getResults();
+        Results results = racing.results();
         List<Name> winners = racing.announceWinners(cars);
         return RacingCarResponse.of(results, winners);
     }
 
+    private void playRacingCar(final Racing racing, final Cars cars) {
+        for (int currentRound = 0; currentRound < racing.roundTotal(); currentRound++) {
+            List<Integer> randomNumbers = getRandomNumbers(cars.size());
+
+            racing.play(cars, randomNumbers);
+            racing.saveRoundResult(cars);
+        }
+    }
+
     private List<Integer> getRandomNumbers(final int carTotalCount) {
         return IntStream.range(0, carTotalCount)
-                .mapToObj(randomNumber -> getRandomNumber())
+                .mapToObj(randomNumber -> createRandomNumber())
                 .toList();
     }
 
-    private int getRandomNumber() {
+    private int createRandomNumber() {
         NumberRange movementRange = NumberRange.MOVEMENT_RANGE;
         return RandomsApiClient.getRandomNumber(movementRange.start(), movementRange.end());
     }

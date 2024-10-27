@@ -10,12 +10,16 @@ public class Results {
 
     private final List<Result> results;
 
-    public Results() {
+    private Results() {
         this.results = new ArrayList<>();
     }
 
     private Results(final List<Result> results) {
         this.results = results;
+    }
+
+    public static Results empty() {
+        return new Results();
     }
 
     public Results copy() {

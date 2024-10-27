@@ -1,5 +1,7 @@
 package racingcar.domain.racing;
 
+import java.util.Objects;
+
 public class Round {
 
     private static final int MIN_ROUND_TOTAL = 1;
@@ -22,6 +24,33 @@ public class Round {
                     "자동차 경주는 %d 이상 %d 이하의 라운드만 진행 가능합니다.", MIN_ROUND_TOTAL, MAX_ROUND_TOTAL
             ));
         }
+    }
+
+    public int total() {
+        return total;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Round round)) {
+            return false;
+        }
+        return total == round.total;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(total);
+    }
+
+    @Override
+    public String toString() {
+        return "Round{" +
+                "total=" + total +
+                '}';
     }
 
 }

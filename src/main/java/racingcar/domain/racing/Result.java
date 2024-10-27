@@ -11,12 +11,12 @@ public class Result {
 
     private final Map<Name, Position> result;
 
-    private Result(final Map<Name, Position> result) {
-        this.result = result;
+    private Result() {
+        this.result = new HashMap<>();
     }
 
     public static Result empty() {
-        return new Result(new HashMap<>());
+        return new Result();
     }
 
     public void save(final Name name, final Position position) {
