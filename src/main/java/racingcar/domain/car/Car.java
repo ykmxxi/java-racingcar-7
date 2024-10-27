@@ -29,16 +29,16 @@ public class Car {
         return this.position.equals(position);
     }
 
+    public Car copy() {
+        return new Car(this.name.value(), this.position.value());
+    }
+
     public Name name() {
         return name;
     }
 
     public Position position() {
         return position;
-    }
-
-    public Car copy() {
-        return new Car(this.name.value(), this.position.value());
     }
 
     @Override

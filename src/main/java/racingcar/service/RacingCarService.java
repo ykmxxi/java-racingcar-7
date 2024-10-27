@@ -45,7 +45,7 @@ public class RacingCarService {
     }
 
     private int createRandomNumber() {
-        NumberRange movementRange = NumberRange.MOVEMENT_RANGE;
+        NumberRange movementRange = NumberRange.RANDOM_NUMBER_RANGE;
         return RandomsApiClient.getRandomNumber(movementRange.start(), movementRange.end());
     }
 

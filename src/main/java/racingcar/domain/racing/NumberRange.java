@@ -2,7 +2,7 @@ package racingcar.domain.racing;
 
 public enum NumberRange {
 
-    MOVEMENT_RANGE(0, 9);
+    RANDOM_NUMBER_RANGE(0, 9);
 
     private final int start;
     private final int end;
