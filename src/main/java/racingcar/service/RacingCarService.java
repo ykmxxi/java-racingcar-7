@@ -20,9 +20,7 @@ public class RacingCarService {
 
         playRacingCar(racing, cars);
 
-        Results results = racing.results();
-        List<Name> winners = racing.announceWinners(cars);
-        return RacingCarResponse.of(results, winners);
+        return getRacingCarResponse(racing, cars);
     }
 
     private void playRacingCar(final Racing racing, final Cars cars) {
@@ -38,6 +36,14 @@ public class RacingCarService {
         return IntStream.range(0, carTotalCount)
                 .mapToObj(randomNumber -> createRandomNumber())
                 .toList();
+    }
+
+    private RacingCarResponse getRacingCarResponse(final Racing racing, final Cars cars) {
+        Results results = racing.results();
+        List<Name> winners = racing.announceWinners(cars);
+
+        RacingResultMapper racingResultMapper = new RacingResultMapper();
+        return racingResultMapper.toResponse(results, winners);
     }
 
     private int createRandomNumber() {

@@ -22,7 +22,7 @@ public class OutputView {
         StringBuilder builder = new StringBuilder();
         appendResultGuide(builder);
         appendRaceResults(builder, response);
-        appendWinnerNames(builder, response.winners());
+        appendWinnerNames(builder, response.winnerNames());
         return builder.toString();
     }
 
@@ -32,7 +32,7 @@ public class OutputView {
     }
 
     private static void appendRaceResults(final StringBuilder builder, final RacingCarResponse response) {
-        for (Map<String, Integer> raceResult : response.raceResults()) {
+        for (Map<String, Integer> raceResult : response.racingResults()) {
             appendRaceResult(builder, raceResult);
             builder.append(LINE_SEPARATOR);
         }

@@ -1,6 +1,6 @@
 package racingcar.domain.racing;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -12,7 +12,7 @@ public class Result {
     private final Map<Name, Position> result;
 
     private Result() {
-        this.result = new HashMap<>();
+        this.result = new LinkedHashMap<>();
     }
 
     public static Result empty() {
