@@ -26,8 +26,7 @@ public class RacingCarController {
                 createRacingCarRequest(carNamesInput, tryCountInput)
         );
 
-        OutputView.printRaceResults(racingCarResponse.raceResults());
-        OutputView.printWinnerNames(racingCarResponse.winners());
+        OutputView.printRacingCarResults(racingCarResponse);
     }
 
     private RacingCarRequest createRacingCarRequest(final String carNames, final String tryCount) {

@@ -4,24 +4,55 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import racingcar.dto.RacingCarResponse;
+
 public class OutputView {
 
-    private static final String DELIMITER = " : ";
+    private static final String RESULT_DELIMITER = " : ";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     private OutputView() {}
 
-    public static void printRaceResults(final List<Map<String, Integer>> raceResults) {
-        System.out.println("실행 결과");
-        for (Map<String, Integer> raceResult : raceResults) {
-            for (Entry<String, Integer> entry : raceResult.entrySet()) {
-                System.out.println(String.join(DELIMITER, entry.getKey(), "-".repeat(entry.getValue())));
-            }
-            System.out.println();
+    public static void printRacingCarResults(final RacingCarResponse response) {
+        String racingCarResults = formatRacingCarResults(response);
+        System.out.println(racingCarResults);
+    }
+
+    private static String formatRacingCarResults(final RacingCarResponse response) {
+        StringBuilder builder = new StringBuilder();
+        appendResultGuide(builder);
+        appendRaceResults(builder, response);
+        appendWinnerNames(builder, response.winners());
+        return builder.toString();
+    }
+
+    private static void appendResultGuide(final StringBuilder builder) {
+        builder.append(LINE_SEPARATOR)
+                .append("실행 결과");
+    }
+
+    private static void appendRaceResults(final StringBuilder builder, final RacingCarResponse response) {
+        for (Map<String, Integer> raceResult : response.raceResults()) {
+            appendRaceResult(builder, raceResult);
+            builder.append(LINE_SEPARATOR);
         }
     }
 
-    public static void printWinnerNames(final List<String> winnerNames) {
-        System.out.println(String.join(DELIMITER, "최종 우승자", String.join(",", winnerNames)));
+    private static void appendRaceResult(final StringBuilder builder, final Map<String, Integer> raceResult) {
+        for (Entry<String, Integer> entry : raceResult.entrySet()) {
+            String name = entry.getKey();
+            String position = "-".repeat(entry.getValue());
+            builder.append(joinWithResultDelimiter(name, position))
+                    .append(LINE_SEPARATOR);
+        }
+    }
+
+    private static void appendWinnerNames(final StringBuilder builder, final List<String> winnerNames) {
+        builder.append(joinWithResultDelimiter("최종 우승자", String.join(",", winnerNames)));
+    }
+
+    private static String joinWithResultDelimiter(final String front, final String back) {
+        return String.join(RESULT_DELIMITER, front, back);
     }
 
 }
