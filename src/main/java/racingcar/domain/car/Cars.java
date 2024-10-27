@@ -13,21 +13,7 @@ public class Cars {
     }
 
     public static Cars from(final List<String> nameValues) {
-        List<Car> uniqueCars = toUniqueCars(nameValues);
-        return new Cars(nameValues.size(), uniqueCars);
-    }
-
-    private static List<Car> toUniqueCars(final List<String> nameValues) {
-        return nameValues.stream()
-                .distinct()
-                .map(Car::new)
-                .toList();
-    }
-
-    private void validateNameDuplication(final int nameValuesSize, final int uniqueCarsSize) {
-        if (nameValuesSize != uniqueCarsSize) {
-            throw new IllegalArgumentException("중복되지 않은 자동차 이름을 입력해주세요");
-        }
+        return new Cars(nameValues.size(), toUniqueCars(nameValues));
     }
 
     public void moveAll(final List<Integer> randomNumbers) {
@@ -52,6 +38,19 @@ public class Cars {
 
     public int size() {
         return cars.size();
+    }
+
+    private static List<Car> toUniqueCars(final List<String> nameValues) {
+        return nameValues.stream()
+                .distinct()
+                .map(Car::new)
+                .toList();
+    }
+
+    private void validateNameDuplication(final int nameValuesSize, final int uniqueCarsSize) {
+        if (nameValuesSize != uniqueCarsSize) {
+            throw new IllegalArgumentException("중복되지 않은 자동차 이름을 입력해주세요");
+        }
     }
 
 }
