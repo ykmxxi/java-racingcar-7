@@ -10,7 +10,7 @@ public class Car {
     private Position position;
 
     public Car(final String nameValue) {
-        this.name = Name.from(Objects.requireNonNull(nameValue));
+        this.name = Name.from(nameValue);
         this.position = Position.zero();
     }
 

@@ -7,14 +7,14 @@ public class Cars {
 
     private final List<Car> cars;
 
-    private Cars(final List<Car> cars) {
+    private Cars(final int nameValuesSize, final List<Car> cars) {
+        validateNameDuplication(nameValuesSize, cars.size());
         this.cars = cars;
     }
 
     public static Cars from(final List<String> nameValues) {
         List<Car> uniqueCars = toUniqueCars(nameValues);
-        validateNameDuplication(nameValues.size(), uniqueCars.size());
-        return new Cars(uniqueCars);
+        return new Cars(nameValues.size(), uniqueCars);
     }
 
     private static List<Car> toUniqueCars(final List<String> nameValues) {
@@ -24,11 +24,10 @@ public class Cars {
                 .toList();
     }
 
-    private static void validateNameDuplication(final int nameValuesSize, final int uniqueCarsSize) {
+    private void validateNameDuplication(final int nameValuesSize, final int uniqueCarsSize) {
         if (nameValuesSize != uniqueCarsSize) {
             throw new IllegalArgumentException("중복되지 않은 자동차 이름을 입력해주세요");
         }
-
     }
 
     public void moveAll(final List<Integer> randomNumbers) {

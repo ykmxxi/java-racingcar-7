@@ -11,26 +11,26 @@ public class Name {
     private final String value;
 
     private Name(final String value) {
+        validate(Objects.requireNonNull(value));
         this.value = value;
     }
 
     public static Name from(final String value) {
-        validate(value);
         return new Name(value);
     }
 
-    private static void validate(final String value) {
+    private void validate(final String value) {
         validateLength(value);
         validateNamePattern(value);
     }
 
-    private static void validateLength(final String value) {
+    private void validateLength(final String value) {
         if (value.isEmpty() || value.length() > MAX_LENGTH) {
             throw new IllegalArgumentException("이름은 1~5자로 입력해주세요.");
         }
     }
 
-    private static void validateNamePattern(final String value) {
+    private void validateNamePattern(final String value) {
         if (!NAME.matcher(value)
                 .matches()
         ) {
