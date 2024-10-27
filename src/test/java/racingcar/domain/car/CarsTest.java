@@ -6,10 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class CarsTest {
 
@@ -34,6 +38,28 @@ class CarsTest {
         assertThatThrownBy(() -> Cars.from(nameValues))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("중복되지 않은 자동차 이름을 입력해주세요");
+    }
+
+    @DisplayName("자동차들은 순서대로 값을 받아 순서대로 움직인다")
+    @MethodSource("provideNumbersAndExpectedPositions")
+    @ParameterizedTest
+    void 자동차들_움직임(List<Integer> numbers, List<Integer> expectedPositions) {
+        Cars cars = Cars.from(nameValues);
+
+        cars.moveAll(numbers);
+
+        assertThat(cars.getCars().stream()
+                .map(Car::position)
+                .map(Position::value)
+                .toList()
+        ).isEqualTo(expectedPositions);
+    }
+
+    static Stream<Arguments> provideNumbersAndExpectedPositions() {
+        return Stream.of(
+                Arguments.of(List.of(4, 3, 4), List.of(1, 0, 1)),
+                Arguments.of(List.of(3, 4, 3), List.of(0, 1, 0))
+        );
     }
 
     @DisplayName("조회를 위해 반환한 자동차들은 수정이 불가능하다")
