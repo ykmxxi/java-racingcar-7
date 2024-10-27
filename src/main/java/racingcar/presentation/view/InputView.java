@@ -9,22 +9,25 @@ public class InputView {
     public static String readCarNames() {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
 
-        String input = Console.readLine();
-        validateEmptyAndBlank(input);
-        return input;
+        return readInputLine();
     }
 
     public static String readTryCount() {
         System.out.println("시도할 횟수는 몇 회인가요?");
 
-        try {
-            String input = Console.readLine();
-            validateEmptyAndBlank(input);
-            validateNumeric(input);
-            return input;
-        } finally {
-            Console.close();
-        }
+        String inputLine = readInputLine();
+        validateNumeric(inputLine);
+        return inputLine;
+    }
+
+    public static void closeConsole() {
+        Console.close();
+    }
+
+    private static String readInputLine() {
+        String inputLine = Console.readLine();
+        validateEmptyAndBlank(inputLine);
+        return inputLine;
     }
 
     private static void validateEmptyAndBlank(final String input) {
@@ -34,7 +37,9 @@ public class InputView {
     }
 
     private static void validateNumeric(final String input) {
-        if (input.chars().anyMatch(Character::isLetter)) {
+        if (input.chars()
+                .anyMatch(Character::isLetter)
+        ) {
             throw new IllegalArgumentException("시도 횟수는 숫자만 입력 가능합니다.");
         }
     }

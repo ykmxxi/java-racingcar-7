@@ -20,6 +20,7 @@ public class RacingCarController {
     public void run() {
         String carNamesInput = InputView.readCarNames();
         String tryCountInput = InputView.readTryCount();
+        InputView.closeConsole();
 
         RacingCarResponse racingCarResponse = racingCarService.startRacing(
                 createRacingCarRequest(carNamesInput, tryCountInput)
