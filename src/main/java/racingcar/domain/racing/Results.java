@@ -19,12 +19,12 @@ public class Results {
         this.results = results;
     }
 
-    public static Results empty() {
-        return new Results();
-    }
-
     public Results copy() {
         return new Results(this.results);
+    }
+
+    public static Results empty() {
+        return new Results();
     }
 
     public void saveAll(final List<Car> cars) {

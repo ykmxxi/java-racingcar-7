@@ -14,6 +14,10 @@ public class Car {
         this.position = Position.zero();
     }
 
+    public Car copy() {
+        return new Car(this.name.value(), this.position.value());
+    }
+
     private Car(final String nameValue, final int positionValue) {
         this.name = Name.from(nameValue);
         this.position = Position.from(positionValue);
@@ -27,10 +31,6 @@ public class Car {
 
     public boolean isSamePosition(final Position position) {
         return this.position.equals(position);
-    }
-
-    public Car copy() {
-        return new Car(this.name.value(), this.position.value());
     }
 
     public Name name() {
