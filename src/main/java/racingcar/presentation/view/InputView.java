@@ -1,13 +1,21 @@
 package racingcar.presentation.view;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.regex.Pattern;
+
 import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {
 
+    private static final Pattern NAME_INPUT = Pattern.compile("[\\wㄱ-ㅎ가-힣_,]+");
+
     public String readCarNames() {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
 
-        return readInputLine();
+        String inputLine = readInputLine();
+        validateNameInputPattern(inputLine);
+        return inputLine;
     }
 
     public String readTryCount() {
@@ -23,14 +31,33 @@ public class InputView {
     }
 
     private String readInputLine() {
-        String inputLine = Console.readLine();
-        validateEmptyAndBlank(inputLine);
-        return inputLine;
+        try {
+            String inputLine = Objects.requireNonNull(Console.readLine());
+            validateEmpty(inputLine);
+            validateContainsBlank(inputLine);
+            return inputLine;
+        } catch (NullPointerException | NoSuchElementException e) {
+            throw new RuntimeException("시스템 장애로 프로그램을 종료합니다. 다시 실행해 주세요.", e);
+        }
     }
 
-    private void validateEmptyAndBlank(final String input) {
-        if (input.isBlank()) {
-            throw new IllegalArgumentException("공백(빈 문자열)을 입력할 수 없습니다.");
+    private void validateEmpty(final String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("값을 입력해 주세요.");
+        }
+    }
+
+    private void validateContainsBlank(final String input) {
+        if (input.contains(" ")) {
+            throw new IllegalArgumentException("공백을 빼고 입력해주세요.");
+        }
+    }
+
+    private void validateNameInputPattern(final String input) {
+        if (!NAME_INPUT.matcher(input)
+                .matches()
+        ) {
+            throw new IllegalArgumentException("이름은 한글, 숫자, 알파벳 대소문자, 언더바(_), 쉼표(,)만 입력할 수 있습니다");
         }
     }
 
