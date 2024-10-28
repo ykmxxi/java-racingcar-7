@@ -30,6 +30,14 @@ class CarsTest {
         assertDoesNotThrow(() -> Cars.from(nameValues));
     }
 
+    @DisplayName("경주 참가자가 없으면 자동차들 생성에 실패한다")
+    @Test
+    void 자동차들_생성_실패_참가자_없음() {
+        assertThatThrownBy(() -> Cars.from(List.of()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("자동차 이름이 존재하지 않습니다.");
+    }
+
     @DisplayName("자동차들의 이름에 중복이 존재하면 자동차들 생성에 실패한다")
     @Test
     void 자동차들_생성_실패_중복_이름_존재() {
@@ -37,7 +45,7 @@ class CarsTest {
 
         assertThatThrownBy(() -> Cars.from(nameValues))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("중복되지 않은 자동차 이름을 입력해주세요");
+                .hasMessage("중복되지 않은 자동차 이름을 입력해주세요.");
     }
 
     @DisplayName("자동차들은 순서대로 값을 받아 순서대로 움직인다")

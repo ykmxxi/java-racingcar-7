@@ -8,6 +8,7 @@ public class Cars {
     private final List<Car> cars;
 
     private Cars(final int nameValuesSize, final List<Car> cars) {
+        validateEmptyNameValues(nameValuesSize);
         validateNameDuplication(nameValuesSize, cars.size());
         this.cars = cars;
     }
@@ -30,6 +31,25 @@ public class Cars {
                 .toList();
     }
 
+    private static List<Car> toUniqueCars(final List<String> nameValues) {
+        return nameValues.stream()
+                .distinct()
+                .map(Car::new)
+                .toList();
+    }
+
+    private void validateEmptyNameValues(final int nameValuesSize) {
+        if (nameValuesSize == 0) {
+            throw new IllegalArgumentException("자동차 이름이 존재하지 않습니다.");
+        }
+    }
+
+    private void validateNameDuplication(final int nameValuesSize, final int uniqueCarsSize) {
+        if (nameValuesSize != uniqueCarsSize) {
+            throw new IllegalArgumentException("중복되지 않은 자동차 이름을 입력해주세요.");
+        }
+    }
+
     public List<Car> getCars() {
         return cars.stream()
                 .map(Car::copy)
@@ -38,19 +58,6 @@ public class Cars {
 
     public int size() {
         return cars.size();
-    }
-
-    private static List<Car> toUniqueCars(final List<String> nameValues) {
-        return nameValues.stream()
-                .distinct()
-                .map(Car::new)
-                .toList();
-    }
-
-    private void validateNameDuplication(final int nameValuesSize, final int uniqueCarsSize) {
-        if (nameValuesSize != uniqueCarsSize) {
-            throw new IllegalArgumentException("중복되지 않은 자동차 이름을 입력해주세요");
-        }
     }
 
 }
