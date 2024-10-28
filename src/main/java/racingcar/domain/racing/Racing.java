@@ -1,6 +1,7 @@
 package racingcar.domain.racing;
 
 import java.util.List;
+import java.util.Objects;
 
 import racingcar.domain.car.Cars;
 import racingcar.domain.car.Name;
@@ -31,7 +32,7 @@ public class Racing {
     public List<Name> announceWinners(final Cars cars) {
         Position winnerPosition = results.findWinnerPosition();
 
-        return cars.getSamePositionCarNames(winnerPosition);
+        return Objects.requireNonNull(cars.getSamePositionCarNames(winnerPosition));
     }
 
     public Results results() {

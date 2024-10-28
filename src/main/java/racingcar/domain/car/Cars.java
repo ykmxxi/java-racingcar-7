@@ -1,6 +1,7 @@
 package racingcar.domain.car;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class Cars {
@@ -10,7 +11,7 @@ public class Cars {
     private Cars(final int nameValuesSize, final List<Car> cars) {
         validateEmptyNameValues(nameValuesSize);
         validateNameDuplication(nameValuesSize, cars.size());
-        this.cars = cars;
+        this.cars = Objects.requireNonNull(cars);
     }
 
     public static Cars from(final List<String> nameValues) {

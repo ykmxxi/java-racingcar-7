@@ -1,6 +1,7 @@
 package racingcar.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 import racingcar.api.RandomsApiClient;
@@ -19,12 +20,12 @@ public class RacingCarService {
 
         playRacingCar(racing, cars);
 
-        return getRacingCarResponse(racing, cars);
+        return Objects.requireNonNull(getRacingCarResponse(racing, cars));
     }
 
     private void playRacingCar(final Racing racing, final Cars cars) {
         for (int currentRound = 0; currentRound < racing.roundTotal(); currentRound++) {
-            List<Integer> randomNumbers = getRandomNumbers(cars.size());
+            List<Integer> randomNumbers = Objects.requireNonNull(getRandomNumbers(cars.size()));
 
             racing.play(cars, randomNumbers);
             racing.saveRoundResult(cars);

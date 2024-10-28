@@ -2,6 +2,7 @@ package racingcar.presentation;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import racingcar.dto.RacingCarResponse;
 import racingcar.presentation.view.InputView;
@@ -26,7 +27,7 @@ public class RacingCarController {
 
     public void run() {
         try {
-            List<String> nameValues = getNameValues();
+            List<String> nameValues = Objects.requireNonNull(getNameValues());
             int roundTotal = getRoundTotal();
 
             RacingCarResponse racingCarResponse = racingCarService.startRacing(nameValues, roundTotal);
