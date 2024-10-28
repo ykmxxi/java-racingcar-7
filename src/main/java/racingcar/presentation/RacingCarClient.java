@@ -9,13 +9,13 @@ import racingcar.presentation.view.InputView;
 import racingcar.presentation.view.OutputView;
 import racingcar.service.RacingCarService;
 
-public class RacingCarController {
+public class RacingCarClient {
 
     private final InputView inputView;
     private final OutputView outputView;
     private final RacingCarService racingCarService;
 
-    public RacingCarController(
+    public RacingCarClient(
             final InputView inputView,
             final OutputView outputView,
             final RacingCarService racingCarService

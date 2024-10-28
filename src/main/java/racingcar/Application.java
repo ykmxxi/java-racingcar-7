@@ -1,6 +1,6 @@
 package racingcar;
 
-import racingcar.presentation.RacingCarController;
+import racingcar.presentation.RacingCarClient;
 import racingcar.presentation.view.InputView;
 import racingcar.presentation.view.OutputView;
 import racingcar.service.RacingCarService;
@@ -12,13 +12,13 @@ public class Application {
         OutputView outputView = new OutputView();
         RacingCarService racingCarService = new RacingCarService();
 
-        RacingCarController racingCarController = new RacingCarController(
+        RacingCarClient racingCarClient = new RacingCarClient(
                 inputView,
                 outputView,
                 racingCarService
         );
 
-        racingCarController.run();
+        racingCarClient.run();
     }
 
 }
