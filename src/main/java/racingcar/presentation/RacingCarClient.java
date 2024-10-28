@@ -27,7 +27,7 @@ public class RacingCarClient {
 
     public void run() {
         try {
-            List<String> nameValues = Objects.requireNonNull(getNameValues());
+            List<String> nameValues = getNameValues();
             int roundTotal = getRoundTotal();
 
             RacingCarResponse racingCarResponse = racingCarService.startRacing(nameValues, roundTotal);
@@ -42,7 +42,7 @@ public class RacingCarClient {
         String carNamesInput = inputView.readCarNames();
         List<String> nameValues = Arrays.stream(carNamesInput.split(",", -1))
                 .toList();
-        validateNameValues(nameValues);
+        validateNameValues(Objects.requireNonNull(nameValues));
         return nameValues;
     }
 
