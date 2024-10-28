@@ -26,7 +26,8 @@ public class OutputView {
 
     private void appendResultGuide(final StringBuilder builder) {
         builder.append(LINE_SEPARATOR)
-                .append("실행 결과");
+                .append("실행 결과")
+                .append(LINE_SEPARATOR);
     }
 
     private void appendRaceResults(final StringBuilder builder, final RacingCarResponse response) {
@@ -46,7 +47,7 @@ public class OutputView {
     }
 
     private void appendWinnerNames(final StringBuilder builder, final List<String> winnerNames) {
-        builder.append(joinWithResultDelimiter("최종 우승자", String.join(",", winnerNames)));
+        builder.append(joinWithResultDelimiter("최종 우승자", String.join(", ", winnerNames)));
     }
 
     private String joinWithResultDelimiter(final String front, final String back) {
