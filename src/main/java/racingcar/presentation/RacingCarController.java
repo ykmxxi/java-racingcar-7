@@ -10,9 +10,17 @@ import racingcar.service.RacingCarService;
 
 public class RacingCarController {
 
+    private final InputView inputView;
+    private final OutputView outputView;
     private final RacingCarService racingCarService;
 
-    public RacingCarController(final RacingCarService racingCarService) {
+    public RacingCarController(
+            final InputView inputView,
+            final OutputView outputView,
+            final RacingCarService racingCarService
+    ) {
+        this.inputView = inputView;
+        this.outputView = outputView;
         this.racingCarService = racingCarService;
     }
 
@@ -23,14 +31,14 @@ public class RacingCarController {
 
             RacingCarResponse racingCarResponse = racingCarService.startRacing(nameValues, roundTotal);
 
-            OutputView.printRacingCarResults(racingCarResponse);
+            outputView.printRacingCarResults(racingCarResponse);
         } finally {
-            InputView.closeConsole();
+            inputView.closeConsole();
         }
     }
 
     private List<String> getNameValues() {
-        String carNamesInput = InputView.readCarNames();
+        String carNamesInput = inputView.readCarNames();
         List<String> nameValues = Arrays.stream(carNamesInput.split(",", -1))
                 .toList();
         validateNameValues(nameValues);
@@ -47,7 +55,7 @@ public class RacingCarController {
 
     private int getRoundTotal() {
         try {
-            String tryCount = InputView.readTryCount();
+            String tryCount = inputView.readTryCount();
             return Integer.parseInt(tryCount);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("정수만 입력해 주세요.");
