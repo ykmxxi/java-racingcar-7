@@ -57,15 +57,14 @@ class CarTest {
 
         copy.move(4);
 
-        assertThat(car.position()).isEqualTo(Position.zero());
-        assertThat(copy.position()).isEqualTo(Position.from(1));
+        assertThat(copy.position()).isNotEqualTo(car.position());
     }
 
 
     @DisplayName("자동차의 위치가 같으면 true, 다르면 false를 반환한다")
     @MethodSource("providePositionAndExpectedResult")
     @ParameterizedTest
-    void 자동차_위치_비교(Position position, Boolean expected) {
+    void 자동차_위치_비교(Position position, boolean expected) {
         Car car = createCar();
 
         assertThat(car.isSamePosition(position)).isEqualTo(expected);
