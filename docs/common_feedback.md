@@ -14,7 +14,7 @@
     }
     ```
 - `gradle/`은 git로 관리하고 `.gradle/`은 왜 관리하지 않을까?
-    - `.gradle`: Gradle의 캐시 및 설정 파일을 포함, 로컬 환경에 종속적인 데이터들이 저
+    - `.gradle`: Gradle의 캐시 및 설정 파일을 포함, 로컬 환경에 종속적인 데이터들이 저장되어 공유할 필요가 없음
     - `gradle/wrapper/gradle-wrapper.jar`:Gradle의 wrapper 실행 파일로, 프로젝트에서 특정 Gradle 버전을 사용할 수 있게 해주는 자바 실행 파일, 프로젝트의 일관성을 위해 공유대상에 포함
 - `$gradlew`, `$gradlew.bat`이 정확히 어디에 쓰일까?
     - gradlew: Unix/Linux/Mac 에서 사용하는 Gradle Wrapper와 관련된 스크립트 파일
