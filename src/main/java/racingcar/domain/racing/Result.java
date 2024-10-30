@@ -3,6 +3,7 @@ package racingcar.domain.racing;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import racingcar.domain.car.Name;
 import racingcar.domain.car.Position;
@@ -24,7 +25,15 @@ public class Result {
     }
 
     public Map<Name, Position> getResult() {
-        return result;
+        return result.entrySet()
+                .stream()
+                .collect(Collectors.toUnmodifiableMap(
+                        Map.Entry::getKey,
+                        entry -> {
+                            Position position = entry.getValue();
+                            return Position.from(position.value());
+                        }
+                ));
     }
 
     @Override
