@@ -19,7 +19,7 @@ public class Racing {
         this.round = Round.create(roundTotal);
     }
 
-    public static Racing from(final Cars cars, final int roundTotal) {
+    public static Racing of(final Cars cars, final int roundTotal) {
         return new Racing(cars, roundTotal);
     }
 

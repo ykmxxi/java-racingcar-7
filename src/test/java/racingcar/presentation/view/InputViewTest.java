@@ -34,7 +34,7 @@ class InputViewTest {
     void 이름_입력_성공(String input) {
         systemSetIn(input);
 
-        String inputLine = inputView.readCarNames();
+        String inputLine = inputView.readCarNameInput();
 
         assertThat(inputLine).isEqualTo(input);
     }
@@ -53,7 +53,7 @@ class InputViewTest {
     void 입력_시스템_시스템_장애() {
         System.setIn(new ByteArrayInputStream(new byte[0]));
 
-        assertThatCode(() -> inputView.readCarNames())
+        assertThatCode(() -> inputView.readCarNameInput())
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("시스템 장애로 프로그램을 종료합니다. 다시 실행해 주세요.");
     }
@@ -63,7 +63,7 @@ class InputViewTest {
     void 입력_실패_빈_문자열() {
         systemSetIn("\n");
 
-        assertThatThrownBy(() -> inputView.readCarNames())
+        assertThatThrownBy(() -> inputView.readCarNameInput())
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("값을 입력해 주세요.");
     }
@@ -74,7 +74,7 @@ class InputViewTest {
     void 입력_실패_공백_포함(String input) {
         systemSetIn(input);
 
-        assertThatThrownBy(() -> inputView.readCarNames())
+        assertThatThrownBy(() -> inputView.readCarNameInput())
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("공백을 빼고 입력해주세요.");
     }
@@ -85,7 +85,7 @@ class InputViewTest {
     void 이름_입력_실패_허용_문자_외(String input) {
         systemSetIn(input);
 
-        assertThatThrownBy(() -> inputView.readCarNames())
+        assertThatThrownBy(() -> inputView.readCarNameInput())
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("이름은 한글, 숫자, 알파벳 대소문자, 언더바(_), 쉼표(,)만 입력할 수 있습니다");
     }

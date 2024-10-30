@@ -17,17 +17,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class CarsTest {
 
-    private List<String> nameValues;
+    private List<String> carNameInputs;
 
     @BeforeEach
     void setUp() {
-        nameValues = new ArrayList<>(List.of("pobi", "woni", "jun"));
+        carNameInputs = new ArrayList<>(List.of("pobi", "woni", "jun"));
     }
 
     @DisplayName("자동차들의 이름에 중복이 없으면 자동차들이 생성된다")
     @Test
     void 자동차들_생성_성공() {
-        assertDoesNotThrow(() -> Cars.from(nameValues));
+        assertDoesNotThrow(() -> Cars.from(carNameInputs));
     }
 
     @DisplayName("경주 참가자가 없으면 자동차들 생성에 실패한다")
@@ -41,9 +41,9 @@ class CarsTest {
     @DisplayName("자동차들의 이름에 중복이 존재하면 자동차들 생성에 실패한다")
     @Test
     void 자동차들_생성_실패_중복_이름_존재() {
-        nameValues.add("pobi");
+        carNameInputs.add("pobi");
 
-        assertThatThrownBy(() -> Cars.from(nameValues))
+        assertThatThrownBy(() -> Cars.from(carNameInputs))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("중복되지 않은 자동차 이름을 입력해주세요.");
     }
@@ -52,7 +52,7 @@ class CarsTest {
     @MethodSource("provideNumbersAndExpectedPositions")
     @ParameterizedTest
     void 자동차들_움직임(List<Integer> numbers, List<Integer> expectedPositions) {
-        Cars cars = Cars.from(nameValues);
+        Cars cars = Cars.from(carNameInputs);
 
         cars.moveAll(numbers);
 
@@ -73,7 +73,7 @@ class CarsTest {
     @DisplayName("조회를 위해 반환한 자동차들은 수정이 불가능하다")
     @Test
     void 조회를_위한_자동차들_복사본_수정_불가() {
-        Cars cars = Cars.from(nameValues);
+        Cars cars = Cars.from(carNameInputs);
 
         List<Car> copyCars = cars.getCars();
 
@@ -85,7 +85,7 @@ class CarsTest {
     @Test
     void 동일한_위치의_자동차_이름들_반환() {
         Position one = Position.from(1);
-        Cars cars = Cars.from(nameValues);
+        Cars cars = Cars.from(carNameInputs);
         cars.moveAll(List.of(4, 3, 3)); // pobi 이동
 
         assertThat(cars.getSamePositionCarNames(one)).containsExactly(Name.from("pobi"));

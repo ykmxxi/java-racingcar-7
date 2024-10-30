@@ -14,9 +14,9 @@ import racingcar.dto.RacingCarResponse;
 
 public class RacingCarService {
 
-    public RacingCarResponse startRacing(final List<String> nameValues, final int roundTotal) {
-        Cars cars = Cars.from(nameValues);
-        Racing racing = Racing.from(cars, roundTotal);
+    public RacingCarResponse startRacing(final List<String> carNameInputs, final int roundTotal) {
+        Cars cars = Cars.from(carNameInputs);
+        Racing racing = Racing.of(cars, roundTotal);
 
         playRacingCar(racing, cars.size());
 

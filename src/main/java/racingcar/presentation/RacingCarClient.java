@@ -27,7 +27,7 @@ public class RacingCarClient {
 
     public void run() {
         try {
-            List<String> nameValues = getNameValues();
+            List<String> nameValues = getCarNameInputs();
             int roundTotal = getRoundTotal();
 
             RacingCarResponse racingCarResponse = racingCarService.startRacing(nameValues, roundTotal);
@@ -38,16 +38,16 @@ public class RacingCarClient {
         }
     }
 
-    private List<String> getNameValues() {
-        String carNamesInput = inputView.readCarNames();
-        List<String> nameValues = Arrays.stream(carNamesInput.split(",", -1))
+    private List<String> getCarNameInputs() {
+        String carNameInput = inputView.readCarNameInput();
+        List<String> carNameInputs = Arrays.stream(carNameInput.split(",", -1))
                 .toList();
-        validateNameValues(Objects.requireNonNull(nameValues));
-        return nameValues;
+        validateCarNameInputs(Objects.requireNonNull(carNameInputs));
+        return carNameInputs;
     }
 
-    private void validateNameValues(final List<String> nameValues) {
-        if (nameValues.stream()
+    private void validateCarNameInputs(final List<String> carNameInputs) {
+        if (carNameInputs.stream()
                 .anyMatch(String::isBlank)
         ) {
             throw new IllegalArgumentException("자동차 이름은 공백(빈 문자열)일 수 없습니다.");
