@@ -16,19 +16,19 @@ public class RacingCarService {
 
     public RacingCarResponse startRacing(final List<String> nameValues, final int roundTotal) {
         Cars cars = Cars.from(nameValues);
-        Racing racing = Racing.from(roundTotal);
+        Racing racing = Racing.from(cars, roundTotal);
 
-        playRacingCar(racing, cars);
+        playRacingCar(racing, cars.size());
 
-        return Objects.requireNonNull(getRacingCarResponse(racing, cars));
+        return Objects.requireNonNull(getRacingCarResponse(racing));
     }
 
-    private void playRacingCar(final Racing racing, final Cars cars) {
+    private void playRacingCar(final Racing racing, final int carsSize) {
         for (int currentRound = 0; currentRound < racing.roundTotal(); currentRound++) {
-            List<Integer> randomNumbers = Objects.requireNonNull(getRandomNumbers(cars.size()));
+            List<Integer> randomNumbers = Objects.requireNonNull(getRandomNumbers(carsSize));
 
-            racing.play(cars, randomNumbers);
-            racing.saveRoundResult(cars);
+            racing.play(randomNumbers);
+            racing.saveRoundResult();
         }
     }
 
@@ -38,9 +38,9 @@ public class RacingCarService {
                 .toList();
     }
 
-    private RacingCarResponse getRacingCarResponse(final Racing racing, final Cars cars) {
+    private RacingCarResponse getRacingCarResponse(final Racing racing) {
         Results results = racing.results();
-        List<Name> winners = racing.announceWinners(cars);
+        List<Name> winners = racing.announceWinners();
 
         return RacingCarMessageMapper.toResponse(results, winners);
     }

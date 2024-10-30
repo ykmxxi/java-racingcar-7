@@ -9,27 +9,29 @@ import racingcar.domain.car.Position;
 
 public class Racing {
 
+    private final Cars cars;
     private final Results results;
     private final Round round;
 
-    private Racing(final int roundTotal) {
+    private Racing(final Cars cars, final int roundTotal) {
+        this.cars = cars;
         this.results = Results.empty();
         this.round = Round.create(roundTotal);
     }
 
-    public static Racing from(final int roundTotal) {
-        return new Racing(roundTotal);
+    public static Racing from(final Cars cars, final int roundTotal) {
+        return new Racing(cars, roundTotal);
     }
 
-    public void play(final Cars cars, final List<Integer> numbers) {
+    public void play(final List<Integer> numbers) {
         cars.moveAll(numbers);
     }
 
-    public void saveRoundResult(final Cars cars) {
+    public void saveRoundResult() {
         results.saveAll(cars.getCars());
     }
 
-    public List<Name> announceWinners(final Cars cars) {
+    public List<Name> announceWinners() {
         Position winnerPosition = results.findWinnerPosition();
 
         return Objects.requireNonNull(cars.getSamePositionCarNames(winnerPosition));

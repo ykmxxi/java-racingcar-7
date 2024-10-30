@@ -25,21 +25,21 @@ class RacingTest {
     @BeforeEach
     void setUp() {
         cars = Cars.from(List.of("pobi", "woni"));
-        racing = Racing.from(1);
+        racing = Racing.from(cars,1);
     }
 
     @DisplayName("경주를 생성하면 빈 결과 저장 공간들과 총 라운드 횟수가 지정된다")
     @ValueSource(ints = {1, 100})
     @ParameterizedTest
     void 경주_생성_성공(int roundTotal) {
-        assertDoesNotThrow(() -> Racing.from(roundTotal));
+        assertDoesNotThrow(() -> Racing.from(cars, roundTotal));
     }
 
     @DisplayName("총 라운드 횟수가 1 미만, 100 초과면 경주가 생성되지 않는다")
     @ValueSource(ints = {0, 101})
     @ParameterizedTest
     void 경주_생성_실패(int roundTotal) {
-        assertThatThrownBy(() -> Racing.from(roundTotal))
+        assertThatThrownBy(() -> Racing.from(cars, roundTotal))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 경주는 1 이상 100 이하의 라운드만 진행 가능합니다.");
     }
@@ -49,7 +49,7 @@ class RacingTest {
     void 경주_진행() {
         List<Integer> numbers = List.of(4, 4);
 
-        racing.play(cars, numbers);
+        racing.play(numbers);
 
         assertThat(cars.getCars()
                 .stream()
@@ -63,9 +63,9 @@ class RacingTest {
     @Test
     void 각_라운드_결과_저장() {
         List<Integer> numbers = List.of(4, 4);
-        racing.play(cars, numbers);
+        racing.play(numbers);
 
-        racing.saveRoundResult(cars);
+        racing.saveRoundResult();
 
         assertThat(racing.results()
                 .getResults()
@@ -76,10 +76,10 @@ class RacingTest {
     @Test
     void 최종_우승자_발표() {
         List<Integer> numbers = List.of(4, 4);
-        racing.play(cars, numbers);
-        racing.saveRoundResult(cars);
+        racing.play(numbers);
+        racing.saveRoundResult();
 
-        assertThat(racing.announceWinners(cars)
+        assertThat(racing.announceWinners()
                 .stream()
                 .map(Name::value)
                 .toList()
