@@ -6,22 +6,22 @@ import java.util.Objects;
 
 import racingcar.dto.RacingCarResponse;
 import racingcar.presentation.view.InputView;
-import racingcar.presentation.view.OutputView;
+import racingcar.presentation.view.ResultView;
 import racingcar.service.RacingCarService;
 
 public class RacingCarClient {
 
     private final InputView inputView;
-    private final OutputView outputView;
+    private final ResultView resultView;
     private final RacingCarService racingCarService;
 
     public RacingCarClient(
             final InputView inputView,
-            final OutputView outputView,
+            final ResultView resultView,
             final RacingCarService racingCarService
     ) {
         this.inputView = inputView;
-        this.outputView = outputView;
+        this.resultView = resultView;
         this.racingCarService = racingCarService;
     }
 
@@ -32,7 +32,7 @@ public class RacingCarClient {
 
             RacingCarResponse racingCarResponse = racingCarService.startRacing(nameValues, roundTotal);
 
-            outputView.printRacingCarResults(racingCarResponse);
+            resultView.printRacingCarResults(racingCarResponse);
         } finally {
             inputView.closeConsole();
         }

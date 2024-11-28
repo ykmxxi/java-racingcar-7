@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import racingcar.dto.RacingCarResponse;
 
-public class OutputView {
+public class ResultView {
 
     private static final String RESULT_DELIMITER = " : ";
     private static final String LINE_SEPARATOR = System.lineSeparator();
