@@ -14,7 +14,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import racingcar.domain.car.Car;
 import racingcar.domain.car.Cars;
-import racingcar.domain.car.Name;
 import racingcar.domain.car.Position;
 
 class RacingTest {
@@ -25,7 +24,7 @@ class RacingTest {
     @BeforeEach
     void setUp() {
         cars = Cars.from(List.of("pobi", "woni"));
-        racing = Racing.of(cars,1);
+        racing = Racing.of(cars, 1);
     }
 
     @DisplayName("경주를 생성하면 빈 결과 저장 공간들과 총 라운드 횟수가 지정된다")
@@ -76,14 +75,12 @@ class RacingTest {
     @Test
     void 최종_우승자_발표() {
         List<Integer> numbers = List.of(4, 4);
+
         racing.play(numbers);
         racing.saveRoundResult();
 
-        assertThat(racing.announceWinners()
-                .stream()
-                .map(Name::value)
-                .toList()
-        ).containsExactly("pobi", "woni");
+        assertThat(racing.announceWinners()).extracting("value")
+                .containsExactly("pobi", "woni");
     }
 
 }
