@@ -60,7 +60,6 @@ class CarTest {
         assertThat(copy.position()).isNotEqualTo(car.position());
     }
 
-
     @DisplayName("자동차의 위치가 같으면 true, 다르면 false를 반환한다")
     @MethodSource("providePositionAndExpectedResult")
     @ParameterizedTest
